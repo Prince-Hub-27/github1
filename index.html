@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pearl Pastries</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Outfit', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background-color: #f8b4cc;
+      text-align: center;
+      padding: 1rem;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .section {
+      display: none;
+      padding: 2rem;
+    }
+    .home {
+      padding: 2rem;
+    }
+    .products-grid {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .product {
+      border: 1px solid #ddd;
+      padding: 1rem;
+      width: 200px;
+      text-align: center;
+      border-radius: 10px;
+    }
+    .product img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .cart {
+      margin-top: 2rem;
+    }
+    button {
+      background-color: #f472b6;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin-top: 0.5rem;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+    .back-btn {
+      margin-top: 1rem;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Pearl Pastries</h1>
+    <nav>
+      <a onclick="showSection('home')">Home</a>
+      <a onclick="showSection('about')">About</a>
+      <a onclick="showSection('products')">Products</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HOME -->
+  <section id="home" class="home">
+    <h2>Welcome to Pearl Pastries</h2>
+    <div class="products-grid">
+      <div class="product">
+        <img src="https://via.placeholder.com/200x150.png?text=Chocolate+Cake" alt="Chocolate Cake">
+        <h4>Chocolate Cake</h4>
+        <p>₹450</p>
+        <button onclick="addToCart('Chocolate Cake', 450)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/200x150.png?text=Cupcake" alt="Cupcake">
+        <h4>Cupcake</h4>
+        <p>₹60</p>
+        <button onclick="addToCart('Cupcake', 60)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/200x150.png?text=Cookie" alt="Cookie">
+        <h4>Cookie</h4>
+        <p>₹30</p>
+        <button onclick="addToCart('Cookie', 30)">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="cart">
+      <h3>🛒 Cart</h3>
+      <ul id="cartList"></ul>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <h3>About Us</h3>
+    <p>Sweet Petals is a cozy bakery focused on handcrafted treats using natural ingredients. We believe in spreading smiles with every dessert.</p>
+    <button class="back-btn" onclick="showSection('home')">⬅ Back to Home</button>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products" class="section">
+    <h3>Our Products</h3>
+    <ul class="product-list">
+      <li>🎂 Custom Cakes</li>
+      <li>🧁 Cupcakes</li>
+      <li>🍪 Cookies</li>
+      <li>🥐 Pastries</li>
+    </ul>
+    <button class="back-btn" onclick="showSection('home')">⬅ Back to Home</button>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <h3>Contact Us</h3>
+    <p>Email: <a href="mailto:princerobinraj@gmail.com">princerobinraj@gmail.com</a></p>
+    <p>Phone: +91-98765-43210</p>
+  </section>
+
+  <footer>
+    <p>© Pearl Pastries</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    const cart = [];
+
+    function showSection(id) {
+      const allSections = document.querySelectorAll('.section, .home');
+      allSections.forEach(section => section.style.display = 'none');
+
+      const selected = document.getElementById(id);
+      if (selected) selected.style.display = 'block';
+    }
+
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      updateCart();
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartList = document.getElementById('cartList');
+      cartList.innerHTML = '';
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `${item.name} - ₹${item.price} 
+          <button onclick="removeFromCart(${index})">Remove</button>`;
+        cartList.appendChild(li);
+      });
+    }
+
+    // Show home on load
+    window.onload = () => showSection('home');
+  </script>
+</body>
+</html>

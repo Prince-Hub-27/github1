@@ -10,19 +10,9 @@ function App() {
   };
 
   return (
-    
     <div style={{ padding: "20px" }}>
-     
-    <header>
-    <h1>Pearl Pastries</h1>
-    <nav>
-      <a onclick="showSection('home')">Home</a>
-      <a onclick="showSection('about')">About</a>
-      <a onclick="showSection('products')">Products</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
-  
+      <h1>🛒 E-Market</h1>
+      <h2>Cart: {cart.length} items</h2>
       <ProductList products={products} addToCart={addToCart} />
     </div>
   );
